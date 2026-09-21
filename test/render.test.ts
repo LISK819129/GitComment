@@ -1,0 +1,123 @@
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
+import { normalize } from '../src/comments.js'
+import { loadConfig, type Theme } from '../src/config.js'
+import { render } from '../src/render.js'
+import { comments, now } from './fixtures.js'
+
+const url = 'https://github.com/octo/octo/discussions/1'
+const html: Theme[] = ['cozy', 'steam', 'minimal']
+const art: Theme[] = ['notes', 'drawn']
+const all = [...html, ...art]
+
+function out(overrides = {}) {
+  const config = loadConfig(null, { blockedUsers: ['spamaccount'], ...overrides })
+  const picked = normalize(comments, config, 'octo').map(c => ({ ...c, avatarData: 'data:image/png;base64,AAA' }))
+  return render(config, picked, url, comments.length, now)
+}
+
+const block = (o = {}) => out(o).markdown
+
+for (const theme of all) {
+  test(`${theme} renders the pieces a comments needs`, () => {
+    const md = block({ theme })
+    assert.match(md, /rohan/)
+    assert.match(md, /https:\/\/github.com\/rohan/)
+    assert.equal(md.includes(url), true)
+  })
+
+  test(`${theme} never emits comment markup or comment HTML`, () => {
+    const r = out({ theme, maxComments: 25 })
+    const all = r.markdown + r.assets.map(a => a.content).join('')
+    assert.equal(all.includes('<!--'), false)
+    assert.equal(all.includes('<script'), false)
+    assert.doesNotMatch(all, /<[a-z]+[^>]*\son[a-z]+\s*=/i)
+  })
+
+  test(`${theme} renders an empty comments without falling over`, () => {
+    const config = loadConfig(null, { theme })
+    const r = render(config, [], url, 0, now)
+    assert.equal(r.markdown.includes(url), true)
+    assert.equal(r.markdown.trim().length > 0, true)
+  })
+}
+
+for (const theme of html) {
+  test(`${theme} writes no files`, () => {
+    assert.deepEqual(out({ theme }).assets, [])
+  })
+
+  test(`${theme} links every username`, () => {
+    const md = block({ theme })
+    assert.match(md, /avatars.githubusercontent.com/)
+  })
+}
+
+for (const theme of art) {
+  test(`${theme} produces one svg asset referenced with a content hash`, () => {
+    const r = out({ theme })
+    assert.equal(r.assets.length, 1)
+    const asset = r.assets[0]!
+    assert.match(asset.path, /\.svg$/)
+    assert.match(asset.content, /^<svg xmlns=/)
+    assert.equal(r.markdown.includes(asset.path + '?v='), true)
+    assert.match(r.markdown, /\?v=[0-9a-f]{10}/)
+  })
+
+  test(`${theme} keeps the hash stable for the same input`, () => {
+    assert.equal(out({ theme }).markdown, out({ theme }).markdown)
+  })
+
+  test(`${theme} changes the hash when the comments change`, () => {
+    assert.notEqual(out({ theme }).markdown, out({ theme, maxComments: 4 }).markdown)
+  })
+
+  test(`${theme} escapes hostile text inside the svg`, () => {
+    const svg = out({ theme, maxComments: 25 }).assets[0]!.content
+    assert.doesNotMatch(svg, /<img|<script|]]>/)
+    assert.equal(svg.includes('<!--'), false)
+  })
+
+  test(`${theme} still links each profile in the text row`, () => {
+    assert.match(block({ theme }), /<a href="https:\/\/github\.com\/rohan">/)
+  })
+}
+
+test('notes embeds avatars as data uris and never fetches externally', () => {
+  const svg = out({ theme: 'notes' }).assets[0]!.content
+  assert.match(svg, /href="data:image\/png;base64,/)
+  assert.doesNotMatch(svg, /href="https?:\/\//)
+})
+
+test('notes survives a comment whose avatar could not be fetched', () => {
+  const config = loadConfig(null, { theme: 'notes' })
+  const picked = normalize(comments, config, 'octo')
+  const svg = render(config, picked, url, 12, now).assets[0]!.content
+  assert.doesNotMatch(svg, /undefined/)
+})
+
+test('drawn header depends only on the title, not the comments', () => {
+  const a = out({ theme: 'drawn' }).assets[0]!.content
+  const b = out({ theme: 'drawn', maxComments: 2 }).assets[0]!.content
+  assert.equal(a, b)
+})
+
+test('links to the discussion for the comments it did not show', () => {
+  assert.match(block({ maxComments: 3 }), /older messages \(\d+\)/)
+})
+
+test('show_avatar and show_date turn things off', () => {
+  const bare = block({ showAvatar: false, showDate: false })
+  assert.doesNotMatch(bare, /avatars.githubusercontent.com/)
+  assert.doesNotMatch(bare, /ago</)
+})
+
+test('truncated comments link back to the original', () => {
+  const md = block({ maxComments: 25 })
+  assert.match(md, /read the rest/)
+  assert.match(md, /discussioncomment-\d+/)
+})
+
+test('avatar urls are escaped so the attribute cannot be broken out of', () => {
+  assert.match(block(), /\?s=80&amp;v=4/)
+})

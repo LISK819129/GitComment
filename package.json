@@ -1,0 +1,29 @@
+{
+  "name": "gitcomment",
+  "version": "1.0.0",
+  "description": "Guestbook comments for GitHub profile READMEs, powered by GitHub Discussions.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist --minify",
+    "test": "tsx --test test/*.test.ts",
+    "preview": "tsx test/preview.ts",
+    "typecheck": "tsc --noEmit",
+    "font": "python -m fontTools.subset assets/Caveat.ttf --text=\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .,'!?()&-\" --flavor=woff2 --output-file=assets/caveat.woff2 --no-hinting --desubroutinize --layout-features=''",
+    "try": "tsx test/local.ts",
+    "serve": "tsx test/serve.ts"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.10.2",
+    "@vercel/ncc": "^0.38.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

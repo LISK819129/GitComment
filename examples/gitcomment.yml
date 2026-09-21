@@ -1,0 +1,14 @@
+title: "Comments"
+subtitle: "little messages from people passing by."
+
+# cozy | steam | minimal | notes | drawn
+theme: cozy
+
+max_comments: 5
+message_max_length: 240
+
+show_avatar: true
+show_date: true
+
+moderation: automatic
+blocked_users: []

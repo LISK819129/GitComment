@@ -1,0 +1,42 @@
+name: GitComment
+description: Render a comments of GitHub Discussion comments into your profile README.
+author: gitcomment
+
+branding:
+  icon: message-square
+  color: purple
+
+inputs:
+  discussion-number:
+    description: Number of the Discussion that holds the comments comments.
+    required: true
+  token:
+    description: Token used to read the Discussion and commit the README.
+    default: ${{ github.token }}
+  repository:
+    description: Repository holding the Discussion and the README, as owner/name.
+    default: ${{ github.repository }}
+  readme-path:
+    description: Path to the README that contains the GitComment markers.
+    default: README.md
+  config:
+    description: Path to the GitComment config file. Ignored if it does not exist.
+    default: .github/gitcomment.yml
+  branch:
+    description: Branch to read and commit to. Defaults to the repository default branch.
+  theme:
+    description: Overrides theme from the config file. One of cozy, steam, minimal.
+  max-comments:
+    description: Overrides max_comments from the config file.
+
+outputs:
+  comments:
+    description: Number of comments rendered.
+  changed:
+    description: Whether the README was committed.
+  markdown:
+    description: The rendered comments block.
+
+runs:
+  using: node24
+  main: dist/index.js

@@ -1,0 +1,21 @@
+name: comments
+
+on:
+  discussion_comment:
+    types: [created, edited, deleted]
+  workflow_dispatch:
+
+concurrency:
+  group: comments
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      discussions: read
+    steps:
+      - uses: OWNER/gitcomment@v1
+        with:
+          discussion-number: 1
