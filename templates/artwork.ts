@@ -34,13 +34,8 @@ export function artwork(view: View, name: string, draw: Draw): Rendered {
     picture = `<img src="${escape(src)}" alt="${alt}" width="${width}">`
   }
 
-  const names = view.comments
-    .map(c => `<a href="${escape(c.profileUrl)}">@${escape(c.login)}</a>`)
-    .join(' · ')
-
   const hidden = view.totalCount - view.comments.length
   const footer = [
-    names,
     `<a href="${escape(view.discussionUrl)}">leave a message</a>`,
     hidden > 0 ? `<a href="${escape(view.discussionUrl)}">older messages (${hidden})</a>` : '',
   ]
