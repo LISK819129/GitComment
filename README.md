@@ -171,7 +171,7 @@ Discussion without writing anything, then `npm run serve` to look at them.
 
 ## Credits
 
-Artwork by [Atul Krishna](https://github.com/LISK819129). Handwriting is
+Handwriting is
 [Caveat](https://fonts.google.com/specimen/Caveat), SIL Open Font License.
 
 ## License
