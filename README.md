@@ -94,6 +94,8 @@ valid options, and leaves your README untouched.
 
 ## Setup
 
+<img src="assets/setup.gif" width="880" alt="setting up GitComment">
+
 **1.** Enable Discussions on your profile repository — Settings, Features.
 
 **2.** Create one Discussion for the comments. Note its number from the URL.
