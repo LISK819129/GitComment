@@ -100,23 +100,23 @@ test('drawn header depends only on the title, not the comments', () => {
 })
 
 test('links to the discussion for the comments it did not show', () => {
-  assert.match(block({ maxComments: 3 }), /older messages \(\d+\)/)
+  assert.match(block({ theme: 'cozy', maxComments: 3 }), /older messages \(\d+\)/)
 })
 
 test('show_avatar and show_date turn things off', () => {
-  const bare = block({ showAvatar: false, showDate: false })
+  const bare = block({ theme: 'cozy', showAvatar: false, showDate: false })
   assert.doesNotMatch(bare, /avatars.githubusercontent.com/)
   assert.doesNotMatch(bare, /<span title=/)
 })
 
 test('truncated comments link back to the original', () => {
-  const md = block({ maxComments: 25 })
+  const md = block({ theme: 'cozy', maxComments: 25 })
   assert.match(md, /read the rest/)
   assert.match(md, /discussioncomment-\d+/)
 })
 
 test('avatar urls are escaped so the attribute cannot be broken out of', () => {
-  assert.match(block(), /\?s=80&amp;v=4/)
+  assert.match(block({ theme: 'cozy' }), /\?s=80&amp;v=4/)
 })
 
 const svgThemes: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95']

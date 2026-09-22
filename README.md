@@ -59,6 +59,20 @@ variant: dark
 Commit it, then run the workflow once from the Actions tab. That's the whole
 process.
 
+You can skip the config file entirely and set the theme in the workflow instead:
+
+```yaml
+      - uses: LISK819129/GitComment@v1
+        with:
+          discussion-number: 1
+          theme: dev
+          variant: transparent
+```
+
+Those inputs win over the config file, so one file is enough to get started.
+The config file is for the settings that have no input: `title`, `subtitle`,
+`blocked_users` and `moderation`.
+
 `theme` — `notes` `dev` `pink` `comic` `win95` `drawn` `cozy` `steam` `minimal`
 
 `variant` — `dark` `light` `transparent`

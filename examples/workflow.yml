@@ -19,3 +19,5 @@ jobs:
       - uses: OWNER/GitComment@v1
         with:
           discussion-number: 1
+          theme: notes
+          variant: dark

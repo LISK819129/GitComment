@@ -41,7 +41,8 @@ function client(stub: Stub) {
             shas[args.path] = (shas[args.path] ?? 0) + 1
             throw Object.assign(new Error('conflict'), { status: 409 })
           }
-          assert.equal(args.sha, sha(args.path))
+          const existed = stub.files[args.path] !== undefined
+          assert.equal(args.sha, existed ? sha(args.path) : undefined)
           const text = Buffer.from(args.content, 'base64').toString('utf8')
           stub.files[args.path] = text
           stub.writes.push({ path: args.path, text, sha: args.sha, message: args.message })
@@ -58,7 +59,7 @@ const options = {
   number: 1,
   readmePath: 'README.md',
   configPath: '.github/gitcomment.yml',
-  overrides: {},
+  overrides: { theme: 'cozy' as const },
 }
 
 test('fills the marker region and leaves the rest of the README alone', async () => {
@@ -90,7 +91,7 @@ test('reads config from the repository and applies it', async () => {
     files: { 'README.md': readme, '.github/gitcomment.yml': 'theme: minimal\nmax_comments: 2\n' },
     writes: [],
   }
-  const result = await update(client(stub), options)
+  const result = await update(client(stub), { ...options, overrides: {} })
   assert.equal(result.count, 2)
   assert.doesNotMatch(result.markdown, /<table>/)
 })

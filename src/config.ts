@@ -21,7 +21,7 @@ export type Config = {
 const defaults: Config = {
   title: 'Comments',
   subtitle: 'little messages from people passing by.',
-  theme: 'cozy',
+  theme: 'notes',
   variant: 'dark',
   maxComments: 5,
   showAvatar: true,

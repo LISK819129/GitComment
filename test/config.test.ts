@@ -45,3 +45,8 @@ test('rejects a config file that is not a mapping', () => {
 test('an empty config file is fine', () => {
   assert.deepEqual(loadConfig('# nothing here\n', {}), defaults)
 })
+
+test('the default theme is the one the README advertises', () => {
+  assert.equal(loadConfig(null, {}).theme, 'notes')
+  assert.equal(loadConfig(null, {}).variant, 'dark')
+})

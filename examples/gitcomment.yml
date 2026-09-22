@@ -1,8 +1,8 @@
 title: "Comments"
 subtitle: "little messages from people passing by."
 
-# cozy | steam | minimal | notes | drawn
-theme: cozy
+# notes | dev | pink | comic | win95 | drawn | cozy | steam | minimal
+theme: notes
 
 max_comments: 5
 message_max_length: 240
