@@ -23,5 +23,5 @@ Somewhere else: [website](https://example.com)
 <!-- GITCOMMENT:END -->
 
 Everything between those two markers is written by
-[GitComment](https://github.com/OWNER/gitcomment). The rest of this file is
+[GitComment](https://github.com/OWNER/GitComment). The rest of this file is
 mine.

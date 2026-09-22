@@ -16,6 +16,6 @@ jobs:
       contents: write
       discussions: read
     steps:
-      - uses: OWNER/gitcomment@v1
+      - uses: OWNER/GitComment@v1
         with:
           discussion-number: 1
