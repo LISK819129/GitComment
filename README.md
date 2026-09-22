@@ -34,9 +34,18 @@ Four of the nine, at a glance.
 
 <img src="assets/preview/pink.svg" width="880" alt="the pink theme">
 
-There are five more: `win95` (Windows 95 dialogue boxes), `drawn`, `cozy`,
-`steam` and `minimal`. The last four are plain README HTML rather than images,
-so every username in them stays clickable.
+**win95**
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/preview/win95-dark.svg">
+  <img src="assets/preview/win95-light.svg" width="880" alt="the win95 theme">
+</picture>
+
+This one draws no background at all, so it sits directly on the page and
+follows whichever GitHub theme you are using.
+
+There are four more: `drawn`, `cozy`, `steam` and `minimal`. Those are plain
+README HTML rather than images, so every username in them stays clickable.
 
 ### Changing theme
 
@@ -137,8 +146,13 @@ moderation: automatic
 blocked_users: []
 ```
 
-`max_comments` is how many are drawn, not how many are kept. Nothing is ever
-deleted from the Discussion.
+`max_comments` is how many are drawn, not how many are kept. It defaults to
+**5** and can be anything from **1 to 25**. Only that many of the newest
+comments appear on the board; everything older stays in the Discussion behind
+the `older messages` link, and nothing is ever deleted.
+
+A README cannot scroll, so keeping this number small is the point. Past about
+10 the board gets tall enough to push the rest of your profile off the screen.
 
 Set `moderation: approved` and nothing appears until you add a 👍 to the
 comment yourself. Reactions, because they work from the GitHub mobile app.
