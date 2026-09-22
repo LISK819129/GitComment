@@ -10,5 +10,12 @@ message_max_length: 240
 show_avatar: true
 show_date: true
 
+# approved | automatic
 moderation: automatic
+
+# set this to the day you turn approval on, to keep older comments visible
+# approved_since: 2026-09-22
+
 blocked_users: []
+blocked_words: []
+filter_profanity: false

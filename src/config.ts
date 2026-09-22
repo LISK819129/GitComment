@@ -15,7 +15,10 @@ export type Config = {
   messageMaxLength: number
   moderation: Moderation
   approvalReaction: string
+  approvedSince: string | null
   blockedUsers: string[]
+  blockedWords: string[]
+  filterProfanity: boolean
 }
 
 const defaults: Config = {
@@ -29,7 +32,10 @@ const defaults: Config = {
   messageMaxLength: 240,
   moderation: 'automatic',
   approvalReaction: '+1',
+  approvedSince: null,
   blockedUsers: [],
+  blockedWords: [],
+  filterProfanity: false,
 }
 
 const themes: Theme[] = ['cozy', 'steam', 'minimal', 'notes', 'drawn', 'dev', 'pink', 'comic', 'win95']
@@ -78,7 +84,10 @@ function fromYaml(file: Record<string, unknown>): Partial<Config> {
     message_max_length: 'messageMaxLength',
     moderation: 'moderation',
     approval_reaction: 'approvalReaction',
+    approved_since: 'approvedSince',
     blocked_users: 'blockedUsers',
+    blocked_words: 'blockedWords',
+    filter_profanity: 'filterProfanity',
   }
   for (const [key, value] of Object.entries(file)) {
     const field = map[key]
@@ -116,7 +125,26 @@ function validate(c: Config): Config {
   if (!Array.isArray(c.blockedUsers) || c.blockedUsers.some(u => typeof u !== 'string')) {
     throw new ConfigError('blocked_users must be a list of usernames')
   }
-  return { ...c, blockedUsers: c.blockedUsers.map(u => u.toLowerCase().replace(/^@/, '')) }
+  if (!Array.isArray(c.blockedWords) || c.blockedWords.some(w => typeof w !== 'string')) {
+    throw new ConfigError('blocked_words must be a list of words')
+  }
+  if (typeof c.filterProfanity !== 'boolean') {
+    throw new ConfigError('filter_profanity must be true or false')
+  }
+  if (c.approvedSince !== null && !isDate(c.approvedSince)) {
+    throw new ConfigError('approved_since must be a date like 2026-09-22')
+  }
+  return {
+    ...c,
+    approvedSince: c.approvedSince === null ? null : new Date(c.approvedSince).toISOString(),
+    blockedUsers: c.blockedUsers.map(u => u.toLowerCase().replace(/^@/, '')),
+  }
+}
+
+function isDate(value: unknown) {
+  if (value instanceof Date) return !Number.isNaN(value.getTime())
+  if (typeof value !== 'string') return false
+  return !Number.isNaN(new Date(value).getTime())
 }
 
 export { defaults }
