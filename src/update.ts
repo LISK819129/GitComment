@@ -31,7 +31,7 @@ export async function update(octokit: Octokit, options: Options) {
   )
 
   let comments = normalize(discussion.comments, config, owner)
-  if (needsAvatarData[config.theme]) comments = await embedAvatars(comments)
+  if (needsAvatarData(config.theme)) comments = await embedAvatars(comments)
 
   const { markdown, assets } = render(config, comments, discussion.url, discussion.totalCount)
 

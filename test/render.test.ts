@@ -7,7 +7,7 @@ import { comments } from './fixtures.js'
 
 const url = 'https://github.com/octo/octo/discussions/1'
 const html: Theme[] = ['cozy', 'steam', 'minimal']
-const art: Theme[] = ['notes', 'drawn']
+const art: Theme[] = ['notes', 'drawn', 'dev', 'pink', 'comic', 'win95']
 const all = [...html, ...art]
 
 function out(overrides = {}) {
@@ -121,3 +121,33 @@ test('truncated comments link back to the original', () => {
 test('avatar urls are escaped so the attribute cannot be broken out of', () => {
   assert.match(block(), /\?s=80&amp;v=4/)
 })
+
+const svgThemes: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95']
+
+for (const theme of svgThemes) {
+  test(`${theme} draws a different picture for dark and light`, () => {
+    const dark = out({ theme, variant: 'dark' }).assets[0]!.content
+    const light = out({ theme, variant: 'light' }).assets[0]!.content
+    assert.notEqual(dark, light)
+  })
+
+  test(`${theme} transparent ships two files behind a picture element`, () => {
+    const r = out({ theme, variant: 'transparent' })
+    assert.equal(r.assets.length, 2)
+    assert.match(r.markdown, /<picture>/)
+    assert.match(r.markdown, /prefers-color-scheme: dark/)
+    for (const asset of r.assets) {
+      assert.doesNotMatch(asset.content, /<rect width="880" height="\d+" (rx="\d+" )?fill="#/)
+    }
+  })
+
+  test(`${theme} never leaks NaN or undefined into the artwork`, () => {
+    const svg = out({ theme, maxComments: 25 }).assets[0]!.content
+    assert.doesNotMatch(svg, /NaN|undefined/)
+  })
+
+  test(`${theme} embeds avatars rather than linking them`, () => {
+    const svg = out({ theme }).assets[0]!.content
+    assert.doesNotMatch(svg, /<image[^>]*href="https?:\/\//)
+  })
+}
