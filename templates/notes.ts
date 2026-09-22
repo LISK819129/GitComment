@@ -61,10 +61,11 @@ ${cards.join('\n')}
 <text x="858" y="76" text-anchor="end" class="hand">${xml(view.config.subtitle)}</text>
 <g fill="none" stroke="${skin.hand}" stroke-width="1.6" stroke-linecap="round">
 <path d="M712 92 q-10 28 -48 38"/>
-<path d="M664 130 l16 -7"/>
-<path d="M664 130 l5 -16"/>
+<path d="M664 130 l13 3"/>
+<path d="M664 130 l9 -9"/>
 <path d="M70 348 q14 14 30 6"/>
-<path d="M92 344 l10 10 -12 4"/>
+<path d="M100 354 l-13 -1"/>
+<path d="M100 354 l-7 11"/>
 </g>
 <text x="14" y="300" class="hand">cool</text><text x="14" y="322" class="hand">people</text><text x="14" y="344" class="hand">here</text>
 <path d="M404 210 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="none" stroke="${skin.accent}" stroke-width="1.5"/>
