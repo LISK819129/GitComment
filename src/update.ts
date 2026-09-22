@@ -58,7 +58,6 @@ export async function update(octokit: Octokit, options: Options) {
       )
       return { count: comments.length, changed: true, markdown, assets }
     } catch (err) {
-      // Two people commenting at once race for the same blob; the loser gets a 409 and re-reads.
       const status = (err as { status?: number }).status
       if ((status !== 409 && status !== 422) || attempt === attempts) throw err
       log(`README moved underneath us, retrying (${attempt}/${attempts})`)

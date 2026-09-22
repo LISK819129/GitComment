@@ -1,7 +1,7 @@
 import type { Comment } from '../src/comments.js'
 import type { Config } from '../src/config.js'
 import { escape } from '../src/comments.js'
-import { relative, absolute } from '../src/time.js'
+import { formatDate, fullDate } from '../src/time.js'
 
 export type Asset = { path: string; content: string }
 
@@ -12,7 +12,6 @@ export type View = {
   comments: Comment[]
   discussionUrl: string
   totalCount: number
-  now: Date
 }
 
 export function avatar(c: Comment, size: number) {
@@ -23,8 +22,8 @@ export function name(c: Comment) {
   return `<a href="${escape(c.profileUrl)}"><b>${escape(c.login)}</b></a>`
 }
 
-export function when(c: Comment, now: Date) {
-  return `<span title="${absolute(c.createdAt)}">${relative(c.createdAt, now)}</span>`
+export function when(c: Comment) {
+  return `<span title="${fullDate(c.createdAt)}">${formatDate(c.createdAt)}</span>`
 }
 
 export function body(c: Comment) {

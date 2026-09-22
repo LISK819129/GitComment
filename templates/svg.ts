@@ -13,7 +13,6 @@ export function hash(text: string) {
   return createHash('sha256').update(text).digest('hex').slice(0, 10)
 }
 
-// Deterministic per author, so a note keeps the same tilt every time the board is redrawn.
 export function jitter(key: string) {
   let h = 2166136261
   for (const ch of key) {

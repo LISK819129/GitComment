@@ -1,6 +1,6 @@
 import { caveat } from '../src/font.js'
 import type { Comment } from '../src/comments.js'
-import { relative } from '../src/time.js'
+import { formatDate } from '../src/time.js'
 import { hash, jitter, sans, wrapText, xml } from './svg.js'
 import type { Rendered, View } from './shared.js'
 import { escape } from '../src/comments.js'
@@ -46,7 +46,7 @@ function shortLogin(login: string) {
   return login.length > maxLogin ? `${login.slice(0, maxLogin - 1)}…` : login
 }
 
-function card(c: Comment, x: number, y: number, i: number, rand: () => number, now: Date) {
+function card(c: Comment, x: number, y: number, i: number, rand: () => number) {
   const lines = wrapText(c.text, perLine, maxLines)
   const h = 74 + lines.length * lineH
   const tilt = (rand() - 0.5) * 6.5
@@ -66,7 +66,7 @@ ${tape ? `<rect x="${cardW / 2 - 28}" y="-9" width="56" height="18" rx="1" fill=
 ${avatar}
 <circle cx="${pad + 13}" cy="${pad + 13}" r="13" fill="none" stroke="#ddd8c9"/>
 <text x="${pad + 36}" y="${pad + 17}" class="who">${xml(shortLogin(c.login))}</text>
-<text x="${cardW - pad}" y="${pad + 16}" class="ago" text-anchor="end">${xml(relative(c.createdAt, now))}</text>
+<text x="${cardW - pad}" y="${pad + 16}" class="date" text-anchor="end">${xml(formatDate(c.createdAt))}</text>
 ${lines.map((l, n) => `<text x="${pad}" y="${pad + 46 + n * lineH}" class="msg">${xml(l)}</text>`).join('\n')}
 <line x1="${pad}" y1="${h - 16}" x2="${pad + 58}" y2="${h - 16}" stroke="#dcd7c8" stroke-width="1.2"/>
 </g>`
@@ -82,7 +82,7 @@ function board(view: View) {
     const col = i % 2
     const y = colY[col]!
     const h = 74 + wrapText(c.text, perLine, maxLines).length * lineH
-    cards.push(card(c, colX[col]! + (rand() - 0.5) * 14, y, i, rand, view.now))
+    cards.push(card(c, colX[col]! + (rand() - 0.5) * 14, y, i, rand))
     colY[col] = y + h + 24
   })
 
@@ -103,7 +103,7 @@ function board(view: View) {
 .hand { font-family: 'GCHand', cursive; font-size: 19px; fill: #93a4b8; }
 .title { font-family: 'GCHand', cursive; font-size: 38px; fill: #e8eef6; }
 .who { font-family: ${sans}; font-size: 12px; font-weight: 600; fill: #2b3440; }
-.ago { font-family: ${sans}; font-size: 10.5px; fill: #9aa3ad; }
+.date { font-family: ${sans}; font-size: 10.5px; fill: #9aa3ad; }
 .msg { font-family: ${sans}; font-size: 12.5px; fill: #333c47; }
 </style>
 </defs>

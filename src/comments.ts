@@ -55,8 +55,6 @@ export function plainText(body: string, maxLength: number) {
   return clamp(flatten(strip(body ?? '')), maxLength).text
 }
 
-// The SVG themes draw text directly, so markdown syntax has to come off rather than
-// being turned into tags the way the HTML themes do.
 function flatten(text: string) {
   return text
     .replace(linkPattern, (whole, label: string, href: string) => (safeUrl(href) ? label : whole))
@@ -167,8 +165,6 @@ function shorten(url: string) {
   return bare.length > 48 ? `${bare.slice(0, 47)}\u2026` : bare
 }
 
-// Long unbroken strings stretch the table past the README column; <wbr> is one of the
-// few layout tools GitHub's sanitizer leaves alone.
 function breakLongWords(html: string) {
   return html.replace(/[^\s<>&\u0001]{40,}/g, run => run.replace(/(.{24})/g, '$1<wbr>'))
 }

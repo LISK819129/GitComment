@@ -22,8 +22,7 @@ export function render(
   comments: Comment[],
   discussionUrl: string,
   totalCount: number,
-  now = new Date(),
 ): Rendered {
-  const view: View = { config, comments, discussionUrl, totalCount, now }
+  const view: View = { config, comments, discussionUrl, totalCount }
   return themes[config.theme](view)
 }

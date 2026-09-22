@@ -3,8 +3,6 @@ import type { Comment } from './comments.js'
 const timeout = 8000
 const maxBytes = 24 * 1024
 
-// SVGs served through GitHub's image proxy cannot fetch anything external, so every
-// avatar has to travel inside the file as a data URI.
 export async function embedAvatars(comments: Comment[]): Promise<Comment[]> {
   return Promise.all(
     comments.map(async comment => ({ ...comment, avatarData: await fetchOne(comment.avatarUrl) })),

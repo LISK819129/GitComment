@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { normalize } from '../src/comments.js'
 import { loadConfig, type Theme } from '../src/config.js'
 import { render } from '../src/render.js'
-import { comments, now } from './fixtures.js'
+import { comments } from './fixtures.js'
 
 const url = 'https://github.com/octo/octo/discussions/1'
 const html: Theme[] = ['cozy', 'steam', 'minimal']
@@ -13,7 +13,7 @@ const all = [...html, ...art]
 function out(overrides = {}) {
   const config = loadConfig(null, { blockedUsers: ['spamaccount'], ...overrides })
   const picked = normalize(comments, config, 'octo').map(c => ({ ...c, avatarData: 'data:image/png;base64,AAA' }))
-  return render(config, picked, url, comments.length, now)
+  return render(config, picked, url, comments.length)
 }
 
 const block = (o = {}) => out(o).markdown
@@ -36,7 +36,7 @@ for (const theme of all) {
 
   test(`${theme} renders an empty comments without falling over`, () => {
     const config = loadConfig(null, { theme })
-    const r = render(config, [], url, 0, now)
+    const r = render(config, [], url, 0)
     assert.equal(r.markdown.includes(url), true)
     assert.equal(r.markdown.trim().length > 0, true)
   })
@@ -92,7 +92,7 @@ test('notes embeds avatars as data uris and never fetches externally', () => {
 test('notes survives a comment whose avatar could not be fetched', () => {
   const config = loadConfig(null, { theme: 'notes' })
   const picked = normalize(comments, config, 'octo')
-  const svg = render(config, picked, url, 12, now).assets[0]!.content
+  const svg = render(config, picked, url, 12).assets[0]!.content
   assert.doesNotMatch(svg, /undefined/)
 })
 
@@ -109,7 +109,7 @@ test('links to the discussion for the comments it did not show', () => {
 test('show_avatar and show_date turn things off', () => {
   const bare = block({ showAvatar: false, showDate: false })
   assert.doesNotMatch(bare, /avatars.githubusercontent.com/)
-  assert.doesNotMatch(bare, /ago</)
+  assert.doesNotMatch(bare, /<span title=/)
 })
 
 test('truncated comments link back to the original', () => {

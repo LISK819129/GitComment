@@ -215,8 +215,9 @@ Worth knowing before filing a bug about something looking off.
   carries a content hash so GitHub's image cache picks up new versions.
 - **Nothing inside an image is clickable**, and an SVG served that way cannot
   fetch anything external — which is why avatars are copied into the file.
-- **Relative timestamps are rendered at commit time.** "2h ago" means two hours
-  before the last run, not before you loaded the page. Hover one for the date.
+- **Dates are drawn when the board is rendered**, not when somebody looks at it,
+  which is why they are absolute (`22 Sep, 2026`) rather than relative. A picture
+  cannot tell the time.
 
 ## Development
 

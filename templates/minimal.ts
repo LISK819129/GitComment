@@ -1,14 +1,14 @@
 import { avatar, body, heading, leave, name, older, when, type Rendered, type View, plain } from './shared.js'
 
 export function minimal(view: View): Rendered {
-  const { config, comments, now } = view
+  const { config, comments } = view
   const { title, subtitle } = heading(config)
 
   const entries = comments.map(c => {
     const head = [
       config.showAvatar ? avatar(c, 20) : '',
       name(c),
-      config.showDate ? `<sub>${when(c, now)}</sub>` : '',
+      config.showDate ? `<sub>${when(c)}</sub>` : '',
     ]
       .filter(Boolean)
       .join(' ')

@@ -1,13 +1,13 @@
 import { avatar, body, heading, leave, name, older, when, type Rendered, type View, plain } from './shared.js'
 
 export function steam(view: View): Rendered {
-  const { config, comments, now } = view
+  const { config, comments } = view
   const { title, subtitle } = heading(config)
 
   const rows = comments.map(c => {
     const stacked = [
       name(c),
-      config.showDate ? `<br><sub>${when(c, now)}</sub>` : '',
+      config.showDate ? `<br><sub>${when(c)}</sub>` : '',
       '<br><br>',
       body(c),
     ].join('')

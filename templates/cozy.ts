@@ -1,12 +1,12 @@
 import { avatar, body, heading, leave, name, older, when, type Rendered, type View, plain } from './shared.js'
 
 export function cozy(view: View): Rendered {
-  const { config, comments, now } = view
+  const { config, comments } = view
   const { title, subtitle } = heading(config)
   const span = config.showAvatar ? 2 : 1
 
   const rows = comments.map(c => {
-    const meta = [name(c), config.showDate ? `<sub>${when(c, now)}</sub>` : '']
+    const meta = [name(c), config.showDate ? `<sub>${when(c)}</sub>` : '']
       .filter(Boolean)
       .join(' \u00b7 ')
     const cell = `<td valign="top">${meta}<br>${body(c)}</td>`

@@ -6,12 +6,12 @@ import { avatar, body, leave, name, older, when, type Rendered, type View } from
 const width = 880
 
 export function drawn(view: View): Rendered {
-  const { config, comments, now } = view
+  const { config, comments } = view
   const svg = header(config.title, config.subtitle)
   const path = '.github/gitcomment/header.svg'
 
   const rows = comments.map(c => {
-    const meta = [name(c), config.showDate ? `<sub>${when(c, now)}</sub>` : '']
+    const meta = [name(c), config.showDate ? `<sub>${when(c)}</sub>` : '']
       .filter(Boolean)
       .join(' \u00b7 ')
     const cell = `<td valign="top">${meta}<br>${body(c)}</td>`
@@ -38,7 +38,6 @@ export function drawn(view: View): Rendered {
   return { markdown, assets: [{ path, content: svg }] }
 }
 
-// Depends only on the title and subtitle, so it is written once and then left alone.
 function header(title: string, subtitle: string) {
   const height = 118
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${xml(title)}">

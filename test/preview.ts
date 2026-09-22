@@ -2,7 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { loadConfig, type Theme } from '../src/config.js'
 import { normalize, type Comment } from '../src/comments.js'
 import { render } from '../src/render.js'
-import { comments, now } from './fixtures.js'
+import { comments } from './fixtures.js'
 
 const discussionUrl = 'https://github.com/octo/octo/discussions/1'
 const themes: Theme[] = ['notes', 'drawn', 'cozy', 'steam', 'minimal']
@@ -24,7 +24,7 @@ for (const theme of themes) {
   if (only && theme !== only) continue
   const config = loadConfig(null, { theme, blockedUsers: ['spamaccount'] })
   const picked = normalize(comments, config, 'octo').map(fakeAvatar)
-  const { markdown, assets } = render(config, picked, discussionUrl, comments.length, now)
+  const { markdown, assets } = render(config, picked, discussionUrl, comments.length)
 
   let md = markdown
   for (const asset of assets) {
