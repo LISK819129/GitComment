@@ -1,6 +1,6 @@
 name: GitComment
-description: Render a comments of GitHub Discussion comments into your profile README.
-author: gitcomment
+description: Turn a GitHub Discussion into a comments board on your profile README.
+author: LISK819129
 
 branding:
   icon: message-square
@@ -8,7 +8,7 @@ branding:
 
 inputs:
   discussion-number:
-    description: Number of the Discussion that holds the comments comments.
+    description: Number of the Discussion that holds the comments.
     required: true
   token:
     description: Token used to read the Discussion and commit the README.
@@ -25,9 +25,11 @@ inputs:
   branch:
     description: Branch to read and commit to. Defaults to the repository default branch.
   theme:
-    description: Overrides theme from the config file. One of cozy, steam, minimal.
+    description: Overrides theme from the config file. One of cozy, steam, minimal, notes, drawn, dev, pink, comic, win95.
   max-comments:
     description: Overrides max_comments from the config file.
+  variant:
+    description: Overrides variant from the config file. One of dark, light, transparent.
 
 outputs:
   comments:
@@ -35,7 +37,7 @@ outputs:
   changed:
     description: Whether the README was committed.
   markdown:
-    description: The rendered comments block.
+    description: The rendered markdown block.
 
 runs:
   using: node24

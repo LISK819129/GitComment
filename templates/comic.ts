@@ -60,10 +60,8 @@ ${background ? `<rect width="${boardWidth}" height="${height}" fill="${skin.bg}"
 <rect x="-10" y="-26" width="${20 + view.config.title.length * 21}" height="46" fill="${skin.ink}" transform="rotate(-1.2)"/>
 <text x="4" y="8" class="title" transform="rotate(-1.2)">${xml(view.config.title.toUpperCase())}</text>
 </g>
-<g transform="translate(470 40)">
-<path d="M0 0 h340 v56 h-286 l-22 20 v-20 H0 z" fill="${skin.speech}" stroke="${skin.ink}" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="18" y="24" class="bold">${xml(view.config.subtitle.toUpperCase().slice(0, 34))}</text>
-<text x="18" y="44" class="bold">${xml(view.config.subtitle.toUpperCase().slice(34, 68))}</text>
+<g transform="translate(${bubbleX(view.config.subtitle)} 40)">
+${bubble(view.config.subtitle, skin)}
 </g>
 <image href="${blackCat}" x="${boardWidth - 190}" y="${height - 152}" width="170" height="114"/>
 <g transform="translate(${boardWidth - 300} ${height - 150})">
@@ -73,6 +71,31 @@ ${background ? `<rect width="${boardWidth}" height="${height}" fill="${skin.bg}"
 ${cards.join('\n')}
 </svg>`
   }
+}
+
+const bubbleChars = 26
+
+function bubbleLines(text: string) {
+  return wrapText(text.toUpperCase(), bubbleChars, 3)
+}
+
+function bubbleWidth(text: string) {
+  const longest = Math.max(...bubbleLines(text).map(l => l.length))
+  return Math.max(200, Math.min(390, longest * 9.2 + 34))
+}
+
+function bubbleX(text: string) {
+  return Math.round(boardWidth - 34 - bubbleWidth(text))
+}
+
+function bubble(text: string, skin: (typeof skins)['dark']) {
+  const lines = bubbleLines(text)
+  const w = Math.round(bubbleWidth(text))
+  const h = 22 + lines.length * 19
+  const tail = Math.round(w * 0.16)
+  const shape = `<path d="M0 0 h${w} v${h} h-${w - tail - 22} l-20 18 v-18 H0 z" fill="${skin.speech}" stroke="${skin.ink}" stroke-width="2.5" stroke-linejoin="round"/>`
+  const text_ = lines.map((l, i) => `<text x="17" y="${22 + i * 19}" class="bold">${xml(l)}</text>`)
+  return [shape, ...text_].join(String.fromCharCode(10))
 }
 
 function cardHeight(c: Comment) {

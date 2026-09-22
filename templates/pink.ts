@@ -41,7 +41,7 @@ function build(view: View): Draw {
       colY[0] = 268
     }
 
-    const height = Math.round(Math.max(...colY) + 30)
+    const height = Math.round(Math.max(...colY) + 124)
 
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${boardWidth}" height="${height}" viewBox="0 0 ${boardWidth} ${height}" role="img" aria-label="${xml(view.config.title)}">
 <defs>
@@ -57,8 +57,8 @@ function build(view: View): Draw {
 </defs>
 ${background ? `<rect width="${boardWidth}" height="${height}" rx="8" fill="${skin.bg}"/>` : ''}
 <image href="${blossomTree}" x="-24" y="-16" width="420" height="196" opacity="0.95"/>
-<image href="${blossom}" x="${boardWidth - 250}" y="${height - 150}" width="150" height="119" opacity="0.5"/>
-<image href="${catsleep}" x="${boardWidth - 214}" y="24" width="200" height="114"/>
+<image href="${blossom}" x="18" y="${height - 128}" width="132" height="105" opacity="0.55"/>
+<image href="${catsleep}" x="${boardWidth - 236}" y="${height - 140}" width="220" height="126"/>
 <text x="44" y="82" class="title">${xml(view.config.title)}</text>
 <path d="M44 96 q52 -10 104 0" stroke="${skin.tape}" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 <path d="M196 62 q7 -9 14 0 q7 -9 14 0 q0 11 -14 20 q-14 -9 -14 -20z" fill="none" stroke="${skin.tape}" stroke-width="1.8"/>
