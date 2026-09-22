@@ -1,12 +1,14 @@
 import { load } from 'js-yaml'
 
-export type Theme = 'cozy' | 'steam' | 'minimal' | 'notes' | 'drawn'
+export type Theme = 'cozy' | 'steam' | 'minimal' | 'notes' | 'drawn' | 'dev' | 'pink' | 'comic' | 'win95'
+export type Variant = 'dark' | 'light' | 'transparent'
 export type Moderation = 'automatic' | 'approved'
 
 export type Config = {
   title: string
   subtitle: string
   theme: Theme
+  variant: Variant
   maxComments: number
   showAvatar: boolean
   showDate: boolean
@@ -20,6 +22,7 @@ const defaults: Config = {
   title: 'Comments',
   subtitle: 'little messages from people passing by.',
   theme: 'cozy',
+  variant: 'dark',
   maxComments: 5,
   showAvatar: true,
   showDate: true,
@@ -29,7 +32,8 @@ const defaults: Config = {
   blockedUsers: [],
 }
 
-const themes: Theme[] = ['cozy', 'steam', 'minimal', 'notes', 'drawn']
+const themes: Theme[] = ['cozy', 'steam', 'minimal', 'notes', 'drawn', 'dev', 'pink', 'comic', 'win95']
+const variants: Variant[] = ['dark', 'light', 'transparent']
 const moderations: Moderation[] = ['automatic', 'approved']
 
 const reactions = [
@@ -67,6 +71,7 @@ function fromYaml(file: Record<string, unknown>): Partial<Config> {
     title: 'title',
     subtitle: 'subtitle',
     theme: 'theme',
+    variant: 'variant',
     max_comments: 'maxComments',
     show_avatar: 'showAvatar',
     show_date: 'showDate',
@@ -89,6 +94,9 @@ function validate(c: Config): Config {
   }
   if (!themes.includes(c.theme)) {
     throw new ConfigError(`theme must be one of ${themes.join(', ')}`)
+  }
+  if (!variants.includes(c.variant)) {
+    throw new ConfigError(`variant must be one of ${variants.join(', ')}`)
   }
   if (!moderations.includes(c.moderation)) {
     throw new ConfigError(`moderation must be one of ${moderations.join(', ')}`)

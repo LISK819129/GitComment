@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import { context, getOctokit } from '@actions/github'
-import { ConfigError, type Config, type Theme } from './config.js'
+import { ConfigError, type Config, type Theme, type Variant } from './config.js'
 import { GitHubError } from './github.js'
 import { MarkerError } from './readme.js'
 import { update } from './update.js'
@@ -36,8 +36,10 @@ async function run() {
 function overrides(): Partial<Config> {
   const out: Partial<Config> = {}
   const theme = core.getInput('theme')
+  const variant = core.getInput('variant')
   const max = core.getInput('max-comments')
   if (theme) out.theme = theme as Theme
+  if (variant) out.variant = variant as Variant
   if (max) {
     const n = Number(max)
     if (!Number.isInteger(n)) throw new ConfigError('max-comments must be a whole number')
