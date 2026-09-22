@@ -26,7 +26,7 @@ function build(view: View): Draw {
   return (mode: Mode, background: boolean) => {
     const skin = skins[mode]
     const cards: string[] = []
-    const colY = [156, 184]
+    const colY = [196, 224]
 
     view.comments.forEach((c, i) => {
       const rand = jitter(c.login)
@@ -37,11 +37,11 @@ function build(view: View): Draw {
     })
 
     if (!view.comments.length) {
-      cards.push(`<text x="${colX[0]}" y="216" class="hand" fill="${skin.dim}">nothing here yet — be the first.</text>`)
-      colY[0] = 268
+      cards.push(`<text x="${colX[0]}" y="256" class="hand" fill="${skin.dim}">nothing here yet — be the first.</text>`)
+      colY[0] = 308
     }
 
-    const height = Math.round(Math.max(...colY) + 124)
+    const height = Math.round(Math.max(...colY) + 152)
 
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${boardWidth}" height="${height}" viewBox="0 0 ${boardWidth} ${height}" role="img" aria-label="${xml(view.config.title)}">
 <defs>
@@ -56,14 +56,14 @@ function build(view: View): Draw {
 </style>
 </defs>
 ${background ? `<rect width="${boardWidth}" height="${height}" rx="8" fill="${skin.bg}"/>` : ''}
-<image href="${blossomTree}" x="-24" y="-16" width="420" height="196" opacity="0.95"/>
+<image href="${blossomTree}" x="-34" y="-62" width="340" height="159" opacity="0.95"/>
 <image href="${blossom}" x="18" y="${height - 128}" width="132" height="105" opacity="0.55"/>
-<image href="${catsleep}" x="${boardWidth - 236}" y="${height - 140}" width="220" height="126"/>
-<text x="44" y="82" class="title">${xml(view.config.title)}</text>
-<path d="M44 96 q52 -10 104 0" stroke="${skin.tape}" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M196 62 q7 -9 14 0 q7 -9 14 0 q0 11 -14 20 q-14 -9 -14 -20z" fill="none" stroke="${skin.tape}" stroke-width="1.8"/>
-<text x="452" y="118" class="hand">${xml(view.config.subtitle)}</text>
-<path d="M470 132 q7 -9 14 0 q7 -9 14 0 q0 11 -14 20 q-14 -9 -14 -20z" fill="none" stroke="${skin.tape}" stroke-width="1.8"/>
+<image href="${catsleep}" x="${boardWidth - 240}" y="${height - 137}" width="240" height="137"/>
+<text x="44" y="140" class="title">${xml(view.config.title)}</text>
+<path d="M44 154 q52 -10 104 0" stroke="${skin.tape}" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M196 120 q7 -9 14 0 q7 -9 14 0 q0 11 -14 20 q-14 -9 -14 -20z" fill="none" stroke="${skin.tape}" stroke-width="1.8"/>
+<text x="452" y="150" class="hand">${xml(view.config.subtitle)}</text>
+<path d="M470 164 q7 -9 14 0 q7 -9 14 0 q0 11 -14 20 q-14 -9 -14 -20z" fill="none" stroke="${skin.tape}" stroke-width="1.8"/>
 ${cards.join('\n')}
 </svg>`
   }

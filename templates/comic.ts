@@ -64,9 +64,9 @@ ${background ? `<rect width="${boardWidth}" height="${height}" fill="${skin.bg}"
 ${bubble(view.config.subtitle, skin)}
 </g>
 <image href="${blackCat}" x="${boardWidth - 190}" y="${height - 152}" width="170" height="114"/>
-<g transform="translate(${boardWidth - 300} ${height - 150})">
-<path d="M0 0 h104 v34 h-78 l-16 14 v-14 H0 z" fill="${skin.speech}" stroke="${skin.ink}" stroke-width="2.2" stroke-linejoin="round"/>
-<text x="14" y="22" class="bold" font-size="12">KEEP BUILDING!</text>
+<g transform="translate(${boardWidth - 366} ${height - 150})">
+<path d="M0 0 h152 v34 h-126 l-16 14 v-14 H0 z" fill="${skin.speech}" stroke="${skin.ink}" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="76" y="22" class="bold" font-size="12" text-anchor="middle">KEEP BUILDING!</text>
 </g>
 ${cards.join('\n')}
 </svg>`
