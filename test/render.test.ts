@@ -19,11 +19,11 @@ function out(overrides = {}) {
 const block = (o = {}) => out(o).markdown
 
 for (const theme of all) {
-  test(`${theme} renders the pieces a comments needs`, () => {
-    const md = block({ theme })
-    assert.match(md, /rohan/)
-    assert.match(md, /https:\/\/github.com\/rohan/)
-    assert.equal(md.includes(url), true)
+  test(`${theme} shows the comments and links back to the discussion`, () => {
+    const r = out({ theme })
+    const everything = r.markdown + r.assets.map(a => a.content).join('')
+    assert.match(everything, /rohan/)
+    assert.equal(r.markdown.includes(url), true)
   })
 
   test(`${theme} never emits comment markup or comment HTML`, () => {
@@ -34,7 +34,7 @@ for (const theme of all) {
     assert.doesNotMatch(all, /<[a-z]+[^>]*\son[a-z]+\s*=/i)
   })
 
-  test(`${theme} renders an empty comments without falling over`, () => {
+  test(`${theme} renders an empty board without falling over`, () => {
     const config = loadConfig(null, { theme })
     const r = render(config, [], url, 0)
     assert.equal(r.markdown.includes(url), true)
@@ -78,9 +78,6 @@ for (const theme of art) {
     assert.equal(svg.includes('<!--'), false)
   })
 
-  test(`${theme} still links each profile in the text row`, () => {
-    assert.match(block({ theme }), /<a href="https:\/\/github\.com\/rohan">/)
-  })
 }
 
 test('notes embeds avatars as data uris and never fetches externally', () => {
@@ -141,6 +138,13 @@ for (const theme of svgThemes) {
     }
   })
 
+  test(`${theme} keeps the markdown to the discussion link alone`, () => {
+    const md = out({ theme }).markdown
+    assert.doesNotMatch(md, /github\.com\/rohan/)
+    assert.match(md, /leave a message/)
+    assert.equal(md.includes(url), true)
+  })
+
   test(`${theme} never leaks NaN or undefined into the artwork`, () => {
     const svg = out({ theme, maxComments: 25 }).assets[0]!.content
     assert.doesNotMatch(svg, /NaN|undefined/)
@@ -151,3 +155,8 @@ for (const theme of svgThemes) {
     assert.doesNotMatch(svg, /<image[^>]*href="https?:\/\//)
   })
 }
+
+test('drawn keeps every username clickable, since its comments are real html', () => {
+  const md = out({ theme: 'drawn' }).markdown
+  assert.match(md, /<a href="https:\/\/github\.com\/rohan">/)
+})

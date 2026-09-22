@@ -87,12 +87,16 @@ function dialog(c: Comment, x: number, y: number, skin: (typeof skins)['dark']) 
     ? `<image href="${xml(c.avatarData)}" x="12" y="32" width="26" height="26" preserveAspectRatio="xMidYMid slice"/><rect x="12" y="32" width="26" height="26" fill="none" stroke="${skin.shade}"/>`
     : `<rect x="12" y="32" width="26" height="26" fill="${skin.shade}"/>`
 
-  const controls = ['_', '□', '✕']
+  const controls = ['minimise', '□', '✕']
     .map((g, n) => {
       const bx = boxW - 58 + n * 17
-      return `${bevel(bx, 6, 15, 14, skin)}<text x="${bx + 7.5}" y="${17}" class="ui" text-anchor="middle" font-size="9">${xml(g)}</text>`
+      const glyph =
+        g === 'minimise'
+          ? `<rect x="${bx + 4}" y="14" width="7" height="2" fill="${skin.text}"/>`
+          : `<text x="${bx + 7.5}" y="17" class="ui" text-anchor="middle" font-size="9">${xml(g)}</text>`
+      return `${bevel(bx, 6, 15, 14, skin)}${glyph}`
     })
-    .join('\n')
+    .join(String.fromCharCode(10))
 
   return `<g transform="translate(${x.toFixed(1)} ${y})">
 <rect x="4" y="5" width="${boxW}" height="${h}" fill="#000" opacity="0.28"/>

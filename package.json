@@ -13,7 +13,7 @@
     "font": "python -m fontTools.subset assets/Caveat.ttf --text=\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .,'!?()&-\" --flavor=woff2 --output-file=assets/caveat.woff2 --no-hinting --desubroutinize --layout-features=''",
     "try": "tsx test/local.ts",
     "serve": "tsx test/serve.ts",
-    "art": "python tmp/mkart.py"
+    "art": "python scripts/art.py"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",
