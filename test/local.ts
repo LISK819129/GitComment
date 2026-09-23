@@ -29,7 +29,7 @@ const octokit = getOctokit(token)
 const discussion = await fetchDiscussion(octokit, owner, repo, Number(number))
 console.log(`${discussion.totalCount} comment(s) in "${discussion.title}"`)
 
-const themes: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95', 'drawn', 'cozy', 'steam', 'minimal']
+const themes: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95', 'retro', 'drawn', 'cozy', 'steam', 'minimal']
 const variants: Variant[] = ['dark', 'light', 'transparent']
 const chosen = only ? themes.filter(t => t === only) : themes
 
@@ -45,7 +45,7 @@ const comments = await embedAvatars(normalize(discussion.comments, base, owner))
 const panels: string[] = []
 
 for (const theme of chosen) {
-  const svgTheme = ['notes', 'dev', 'pink', 'comic', 'win95'].includes(theme)
+  const svgTheme = ['notes', 'dev', 'pink', 'comic', 'win95', 'retro'].includes(theme)
   for (const variant of svgTheme ? variants : (['dark'] as Variant[])) {
     const config = loadConfig(null, { theme, variant })
     const { markdown, assets } = render(config, comments, discussion.url, discussion.totalCount)

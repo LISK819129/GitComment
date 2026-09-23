@@ -1,5 +1,6 @@
 import type { Config } from './config.js'
 import type { RawComment } from './github.js'
+import { buildFilter } from './profanity.js'
 
 export type Comment = {
   id: string
@@ -16,13 +17,15 @@ export type Comment = {
 
 export function normalize(raw: RawComment[], config: Config, owner: string): Comment[] {
   const blocked = new Set(config.blockedUsers)
+  const filtered = buildFilter(config.blockedWords, config.filterProfanity)
   const out: Comment[] = []
 
   for (const c of raw) {
     if (c.isMinimized) continue
     if (!c.author) continue
     if (blocked.has(c.author.login.toLowerCase())) continue
-    if (config.moderation === 'approved' && !approvedBy(c, owner)) continue
+    if (needsApproval(c, config) && !approvedBy(c, owner)) continue
+    if (filtered(c.body ?? '')) continue
 
     const { html, truncated } = sanitize(c.body, config.messageMaxLength)
     if (!html) continue
@@ -42,6 +45,12 @@ export function normalize(raw: RawComment[], config: Config, owner: string): Com
 
   out.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
   return out.slice(0, config.maxComments)
+}
+
+function needsApproval(c: RawComment, config: Config) {
+  if (config.moderation !== 'approved') return false
+  if (!config.approvedSince) return true
+  return new Date(c.createdAt) >= new Date(config.approvedSince)
 }
 
 function approvedBy(c: RawComment, owner: string) {

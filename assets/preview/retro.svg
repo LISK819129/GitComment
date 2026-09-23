@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="300" viewBox="0 0 880 300" role="img" aria-label="Comments">
+<defs>
+<linearGradient id="rbar" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#8fb2d8"/><stop offset="1" stop-color="#4d7cb0"/>
+</linearGradient>
+<style>
+.h { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 17px; font-weight: 700; fill: #08172b; }
+.sub { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 11px; fill: #08172b; }
+.nav { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 11.5px; fill: #123d84; }
+.navh { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 11.5px; font-weight: 700; fill: #0e1d31; }
+.who { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 11.5px; font-weight: 700; fill: #123d84; }
+.date { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 10px; fill: #4d6a8c; }
+.msg { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 11.5px; fill: #0e1d31; }
+.dim { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 11.5px; fill: #4d6a8c; }
+.tick { font-family: 'Courier New', Courier, monospace; font-size: 14px; font-weight: 700; fill: #7dff7d; letter-spacing: 2px; }
+.foot { font-family: 'Courier New', Courier, monospace; font-size: 11px; fill: #0e1d31; }
+.small { font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; font-size: 9.5px; fill: #4d6a8c; }
+</style>
+</defs>
+<rect x="10" y="10" width="860" height="280" fill="#c8d8ea" stroke="#1d3452" stroke-width="2"/>
+<rect x="12" y="12" width="856" height="34" fill="url(#rbar)"/>
+<rect x="20" y="19" width="16" height="19" fill="#f8fbff" stroke="#1d3452"/>
+<path d="M23 24 h10 M23 28 h10 M23 32 h6" stroke="#123d84" stroke-width="1.6"/>
+<text x="44" y="34" class="h">Comments</text>
+<text x="440" y="33" class="sub" text-anchor="middle">~ ✦ little messages from people passing by. ✦ ~</text>
+<g transform="translate(680 18)">
+<rect width="96" height="20" fill="#0a0a0a" stroke="#1d3452"/>
+<text x="48" y="15" class="tick" text-anchor="middle">000012</text>
+<text x="104" y="15" class="small">visitors</text>
+</g>
+<rect x="12" y="52" width="168" height="206" fill="#e4edf8" stroke="#9fb8d0"/>
+<text x="23" y="74" class="navh">Sign my guestbook!</text>
+<line x1="22" y1="82" x2="170" y2="82" stroke="#9fb8d0"/>
+<text x="36" y="104" class="nav">Home</text>
+<rect x="23" y="95" width="8" height="8" fill="#c25a12" opacity="0.7"/>
+<text x="36" y="125" class="nav">Guestbook</text>
+<rect x="23" y="116" width="8" height="8" fill="#c25a12" opacity="0.7"/>
+<text x="36" y="146" class="nav">Projects</text>
+<rect x="23" y="137" width="8" height="8" fill="#c25a12" opacity="0.7"/>
+<text x="36" y="167" class="nav">About Me</text>
+<rect x="23" y="158" width="8" height="8" fill="#c25a12" opacity="0.7"/>
+<text x="36" y="188" class="nav">Links</text>
+<rect x="23" y="179" width="8" height="8" fill="#c25a12" opacity="0.7"/>
+<g>
+<rect x="184" y="52" width="686" height="46" fill="#f8fbff" stroke="#9fb8d0"/>
+<image href="data:image/png;base64,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" x="194" y="60" width="30" height="30" preserveAspectRatio="xMidYMid slice"/>
+<rect x="194" y="60" width="30" height="30" fill="none" stroke="#1d3452"/>
+<text x="234" y="72" class="who">octocat</text>
+<line x1="234" y1="74" x2="278.8" y2="74" stroke="#123d84" stroke-width="0.8"/>
+<text x="860" y="72" class="date" text-anchor="end">22 Sep, 2026</text>
+<text x="234" y="89" class="msg">found you through OpenNPC. really cool project</text>
+</g>
+<g>
+<rect x="184" y="104" width="686" height="46" fill="#eaf1fa" stroke="#9fb8d0"/>
+<image href="data:image/png;base64,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" x="194" y="112" width="30" height="30" preserveAspectRatio="xMidYMid slice"/>
+<rect x="194" y="112" width="30" height="30" fill="none" stroke="#1d3452"/>
+<text x="234" y="124" class="who">monalisa</text>
+<line x1="234" y1="126" x2="285.2" y2="126" stroke="#123d84" stroke-width="0.8"/>
+<text x="860" y="124" class="date" text-anchor="end">19 Sep, 2026</text>
+<text x="234" y="141" class="msg">+rep, this person makes weird games</text>
+</g>
+<g>
+<rect x="184" y="156" width="686" height="46" fill="#f8fbff" stroke="#9fb8d0"/>
+<image href="data:image/png;base64,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" x="194" y="164" width="30" height="30" preserveAspectRatio="xMidYMid slice"/>
+<rect x="194" y="164" width="30" height="30" fill="none" stroke="#1d3452"/>
+<text x="234" y="176" class="who">hubot</text>
+<line x1="234" y1="178" x2="266" y2="178" stroke="#123d84" stroke-width="0.8"/>
+<text x="860" y="176" class="date" text-anchor="end">16 Sep, 2026</text>
+<text x="234" y="193" class="msg">Desktop Drifter is sick :)</text>
+</g>
+<g>
+<rect x="184" y="208" width="686" height="46" fill="#eaf1fa" stroke="#9fb8d0"/>
+<image href="data:image/jpeg;base64,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" x="194" y="216" width="30" height="30" preserveAspectRatio="xMidYMid slice"/>
+<rect x="194" y="216" width="30" height="30" fill="none" stroke="#1d3452"/>
+<text x="234" y="228" class="who">defunkt</text>
+<line x1="234" y1="230" x2="278.8" y2="230" stroke="#123d84" stroke-width="0.8"/>
+<text x="860" y="228" class="date" text-anchor="end">13 Sep, 2026</text>
+<text x="234" y="245" class="msg">how did I end up here</text>
+</g>
+<rect x="12" y="262" width="856" height="26" fill="#e4edf8" stroke="#9fb8d0"/>
+<text x="440" y="281" class="foot" text-anchor="middle">&gt;&gt;&gt; Developers from around the world leave their mark here! &lt;&lt;&lt;</text>
+<text x="858" y="64" class="small" text-anchor="end">Best viewed at 1024x768</text>
+</svg>

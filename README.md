@@ -18,7 +18,7 @@ signup, no account to create.
 
 ## Themes
 
-Four of the nine, at a glance.
+Six of the ten, at a glance.
 
 **notes** — the one above. Paper notes, tape, handwriting.
 
@@ -43,6 +43,14 @@ Four of the nine, at a glance.
 
 This one draws no background at all, so it sits directly on the page and
 follows whichever GitHub theme you are using.
+
+**retro**
+
+<img src="assets/preview/retro.svg" width="880" alt="the retro theme">
+
+A guestbook page from about 2003, down to the visitor counter, which shows the
+real number of comments in your Discussion. Always renders as a light page; the
+`dark` variant just darkens the outer frame so it sits better on a dark README.
 
 There are four more: `drawn`, `cozy`, `steam` and `minimal`. Those are plain
 README HTML rather than images, so every username in them stays clickable.
@@ -73,7 +81,8 @@ Those inputs win over the config file, so one file is enough to get started.
 The config file is for the settings that have no input: `title`, `subtitle`,
 `blocked_users` and `moderation`.
 
-`theme` — `notes` `dev` `pink` `comic` `win95` `drawn` `cozy` `steam` `minimal`
+`theme` — `notes` `dev` `pink` `comic` `win95` `retro` `drawn` `cozy` `steam`
+`minimal`
 
 `variant` — `dark` `light` `transparent`
 
@@ -87,7 +96,7 @@ valid options, and leaves your README untouched.
 
 - Shows the newest few comments; the rest stay in the Discussion
 - Real avatars and profile links
-- Nine themes, three variants
+- Ten themes, three variants
 - Hide or delete a comment and it disappears on the next run
 - Blocklist, and an approval mode where nothing appears until you react to it
 - Escapes everything a commenter writes, so nobody can inject markup
@@ -160,6 +169,9 @@ show_date: true
 
 moderation: automatic
 blocked_users: []
+
+filter_profanity: false
+blocked_words: []
 ```
 
 `max_comments` is how many are drawn, not how many are kept. It defaults to
@@ -170,8 +182,42 @@ the `older messages` link, and nothing is ever deleted.
 A README cannot scroll, so keeping this number small is the point. Past about
 10 the board gets tall enough to push the rest of your profile off the screen.
 
-Set `moderation: approved` and nothing appears until you add a 👍 to the
-comment yourself. Reactions, because they work from the GitHub mobile app.
+### Moderation
+
+`automatic` shows everything as it arrives. Hide a comment with GitHub's own
+Hide menu and it disappears on the next run, or add the author to
+`blocked_users`.
+
+`approved` shows nothing until you add a 👍 to the comment yourself. Reactions,
+because they work from the GitHub mobile app.
+
+Turning approval on hides the comments already on your board, because none of
+them have been approved yet. If you would rather keep them, set a cutoff:
+
+```yaml
+moderation: approved
+approved_since: 2026-09-22
+```
+
+Anything posted before that date stays visible. Anything after it needs your
+reaction. Put today's date there on the day you switch approval on.
+
+### Filtering words
+
+`blocked_words` drops any comment containing a word you list.
+
+```yaml
+blocked_words:
+  - crypto
+  - airdrop
+```
+
+`filter_profanity: true` adds a built-in list of common profanity and slurs. It
+matches whole words only, so `Scunthorpe`, `assets` and `cocktail` are safe, and
+it sees through simple padding like `fuuuck` and `sh1t`.
+
+It is a word list, not a moderator. It will miss things, and it only knows
+English. Treat it as a first pass and keep an eye on the Discussion.
 
 ## Limits worth knowing
 

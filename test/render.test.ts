@@ -7,7 +7,7 @@ import { comments } from './fixtures.js'
 
 const url = 'https://github.com/octo/octo/discussions/1'
 const html: Theme[] = ['cozy', 'steam', 'minimal']
-const art: Theme[] = ['notes', 'drawn', 'dev', 'pink', 'comic', 'win95']
+const art: Theme[] = ['notes', 'drawn', 'dev', 'pink', 'comic', 'win95', 'retro']
 const all = [...html, ...art]
 
 function out(overrides = {}) {
@@ -119,7 +119,7 @@ test('avatar urls are escaped so the attribute cannot be broken out of', () => {
   assert.match(block({ theme: 'cozy' }), /\?s=80&amp;v=4/)
 })
 
-const svgThemes: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95']
+const svgThemes: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95', 'retro']
 
 for (const theme of svgThemes) {
   test(`${theme} draws a different picture for dark and light`, () => {

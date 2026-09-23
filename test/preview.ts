@@ -5,7 +5,7 @@ import { render } from '../src/render.js'
 import { comments } from './fixtures.js'
 
 const discussionUrl = 'https://github.com/octo/octo/discussions/1'
-const art: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95']
+const art: Theme[] = ['notes', 'dev', 'pink', 'comic', 'win95', 'retro']
 const plain: Theme[] = ['drawn', 'cozy', 'steam', 'minimal']
 
 mkdirSync('tmp/out', { recursive: true })
