@@ -18,7 +18,7 @@ signup, no account to create.
 
 ## Themes
 
-Four of the nine, at a glance.
+Six of the ten, at a glance.
 
 **notes** — the one above. Paper notes, tape, handwriting.
 
@@ -43,6 +43,14 @@ Four of the nine, at a glance.
 
 This one draws no background at all, so it sits directly on the page and
 follows whichever GitHub theme you are using.
+
+**retro**
+
+<img src="assets/preview/retro.svg" width="880" alt="the retro theme">
+
+A guestbook page from about 2003, down to the visitor counter, which shows the
+real number of comments in your Discussion. Always renders as a light page; the
+`dark` variant just darkens the outer frame so it sits better on a dark README.
 
 There are four more: `drawn`, `cozy`, `steam` and `minimal`. Those are plain
 README HTML rather than images, so every username in them stays clickable.
@@ -73,7 +81,8 @@ Those inputs win over the config file, so one file is enough to get started.
 The config file is for the settings that have no input: `title`, `subtitle`,
 `blocked_users` and `moderation`.
 
-`theme` — `notes` `dev` `pink` `comic` `win95` `drawn` `cozy` `steam` `minimal`
+`theme` — `notes` `dev` `pink` `comic` `win95` `retro` `drawn` `cozy` `steam`
+`minimal`
 
 `variant` — `dark` `light` `transparent`
 
@@ -87,7 +96,7 @@ valid options, and leaves your README untouched.
 
 - Shows the newest few comments; the rest stay in the Discussion
 - Real avatars and profile links
-- Nine themes, three variants
+- Ten themes, three variants
 - Hide or delete a comment and it disappears on the next run
 - Blocklist, and an approval mode where nothing appears until you react to it
 - Escapes everything a commenter writes, so nobody can inject markup

@@ -1,6 +1,6 @@
 import { load } from 'js-yaml'
 
-export type Theme = 'cozy' | 'steam' | 'minimal' | 'notes' | 'drawn' | 'dev' | 'pink' | 'comic' | 'win95'
+export type Theme = 'cozy' | 'steam' | 'minimal' | 'notes' | 'drawn' | 'dev' | 'pink' | 'comic' | 'win95' | 'retro'
 export type Variant = 'dark' | 'light' | 'transparent'
 export type Moderation = 'automatic' | 'approved'
 
@@ -38,7 +38,7 @@ const defaults: Config = {
   filterProfanity: false,
 }
 
-const themes: Theme[] = ['cozy', 'steam', 'minimal', 'notes', 'drawn', 'dev', 'pink', 'comic', 'win95']
+const themes: Theme[] = ['cozy', 'steam', 'minimal', 'notes', 'drawn', 'dev', 'pink', 'comic', 'win95', 'retro']
 const variants: Variant[] = ['dark', 'light', 'transparent']
 const moderations: Moderation[] = ['automatic', 'approved']
 
